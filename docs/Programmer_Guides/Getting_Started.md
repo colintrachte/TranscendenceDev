@@ -23,25 +23,53 @@ You may build your own copies of the game from source. These versions will not
 have the code to access the Kronosaur Multiverse however, but you can still
 use one of the Kronosaur-provided binaries to access the multiverse.
 
+## PREREQUISITES
+
+- **Visual Studio 2022** (Community or higher) with the **Desktop development with C++** workload
+- **February 2010 DirectX SDK** — later versions omit libraries required by the engine
+
+Run the setup script to verify (and optionally install) prerequisites:
+
+    setup.bat
+
+Or directly in PowerShell:
+
+    .\setup.ps1
+
 ## DEVELOPMENT ENVIRONMENT SETUP
 
-You will need to install the February 2010 DirectX SDK release, as later versions 
-do not include necessary libraries. The correct DirectX SDK can be downloaded 
-here: 
+Install the February 2010 DirectX SDK. The correct version can be downloaded here:
 
 [Archive.org - 2010 DirectX SDK](https://archive.org/details/dxsdk_feb10)
 
-Note the DirectX SDK's install location on your computer.
+Install it to the default path when prompted:
+`C:\Program Files (x86)\Microsoft DirectX SDK (February 2010)\`
 
-It may be necessary to uninstall certain Microsoft Visual C++ Redistributables 
-when installing DirectX SDKs:
+> **Note:** If the installer exits with error **S1023**, a newer Visual C++ Redistributable
+> is blocking the install. See [KB2728613](http://support.microsoft.com/kb/2728613) for the fix.
 
-[MSVC++ Redistributable Requirements](http://support.microsoft.com/kb/2728613)
+## BUILDING FROM THE COMMAND LINE
 
-Use Microsoft Visual Studio 2022 or later. Open `File > Open > Project/Solution` 
-`<Repo Root>/Transcendence/Transcendence.sln`, which is the Transcendence 
-solution file. The following warnings, if shown under `Output` from Solution, 
-may be safely ignored:
+Once prerequisites are installed, build from the repo root:
+
+**PowerShell:**
+
+    .\build.ps1               # Debug For Contributors (recommended)
+    .\build.ps1 -Release      # Release build
+
+**Command Prompt:**
+
+    build.bat                 # Debug For Contributors (recommended)
+    build.bat release         # Release build
+
+Output is placed in `Transcendence\Game\Transcendence.exe`.
+
+## BUILDING WITH VISUAL STUDIO
+
+Install Visual Studio 2022 (Community or higher). Open `File > Open > Project/Solution`
+and select `<Repo Root>/Transcendence/Transcendence.sln`.
+
+The following warnings, if shown under `Output` from Solution, may be safely ignored:
 
     <Repo Root>\Alchemy\zlib-1.2.7\contrib\vstudio\vc10\zlibstat.vcxproj : 
     warning  : Platform 'Itanium' referenced in the project file 'zlibstat' 
@@ -50,34 +78,29 @@ may be safely ignored:
     <Repo Root>\TransCore\TransCore.vcxproj : error  : Project 
     "...\TransCore\TransCore.vcxproj" could not be found.
 
-Then go to `View>Solution Explorer` and check the pane opened to the right side.
-Right click `Transcendence` and select `Set as Startup Project`. `Transcendence`
-should now be bolded in the Solution Explorer. 
+Go to `View > Solution Explorer`. Right-click `Transcendence` and select
+`Set as Startup Project`. `Transcendence` should now be bold in the Solution Explorer.
 
-Ensure that the correct locations of the DirectX SDK Include and Lib folders 
-are specified for the Transcendence project (under the Transcendence solution) 
-by right clicking `Transcendence` and selecting `Properties` to open the 
-project's Properties page, and checking the following property sets:
+In the configuration dropdown (second toolbar), select **`Debug For Contributors`**
+and set the platform dropdown to **`Win32`**.
+
+> **Why "Debug For Contributors"?** The `Debug For Contributors` configuration builds with
+> `CHexarcServiceStub.cpp` instead of `CHexarcService.cpp`, which requires private Kronosaur
+> cloud service files not included in this repo. Always use `Debug For Contributors` (or
+> `Preview For Contributors`) when building from this public repo.
+
+Ensure the DirectX SDK include and library paths are set correctly. Right-click
+`Transcendence` (under the Transcendence solution) and select `Properties`:
 
     Configuration Properties > VC++ Directories > General > Include Directories
     Configuration Properties > VC++ Directories > General > Library Directories
     
-Always point the Library Directories variable to the \Lib\x86 folder of the SDK.
+Always point the Library Directories to the `\Lib\x86` folder of the SDK.
 
-In the second from the top ribbon, there is a `Debug` dropdown. Select `Debug for
-Contributors` and change the dropdown next to it from `Any CPU` to `Win32`.
-Build the solution. Executables will be placed in the Transcendence/Game 
-directory. These can be viewed from the file system.
+Build the solution. Executables are placed in `Transcendence/Game/`.
 
-Now the game can optionally be launched from Visual Studio with the `Local Windows
-Debugger` in the second from the top ribbon.
-
-For security reasons the source code does not include certain files to 
-communicate with the Hexarc arcology (the cloud service). The code will compile
-without it, however, as long as you add CHexarcServiceStub.cpp to the build.
-
-In Visual Studio, selecting the "Debug For Contributors" configuration will
-build the game with CHexarcServiceStub.cpp.
+The game can optionally be launched from Visual Studio using the `Local Windows Debugger`
+button in the toolbar.
 
 ## Recommended Editor Configuration
 

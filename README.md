@@ -65,13 +65,20 @@ You may build your own copies of the game from source. These versions will not
 have the code to access the Kronosaur Multiverse however, but you can still
 use one of the Kronosaur-provided binaries to access the multiverse.
 
+**Prerequisites (Windows only):**
+- Visual Studio 2022 (Community or higher) with the **Desktop development with C++** workload
+- [February 2010 DirectX SDK](https://archive.org/details/dxsdk_feb10) installed to its default path
+
+Run `setup.bat` (or `.\setup.ps1` in PowerShell) from the repo root to verify prerequisites,
+then `build.bat` (or `.\build.ps1`) to build.
+
 ## CONTRIBUTING
 
 ### DEVELOPMENT ENVIRONMENT
 
 You can setup a development environment in two ways:
 
-1. A full engine development environment with Visual Studios
+1. A full engine development environment with Visual Studio
 2. A game data only development environment using prebuilt binaries
 
 See this article for more information:

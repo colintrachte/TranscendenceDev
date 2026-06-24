@@ -16,7 +16,7 @@ rerender them in the future from their source scene files.
 We are gradually moving towards using Blender as the accepted software for 3D
 scene files, as Caligari TrueSpace is unsupported legacy software.
 
-Scene files must be comptaible with:
+Scene files must be compatible with:
 
     [Blender](https://www.blender.org/): Current stable version
     Caligari TrueSpace: Version 7.6 (Modelside Edition v2.1)
